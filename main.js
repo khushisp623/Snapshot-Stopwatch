@@ -1,49 +1,62 @@
 <html>
 <head>
 <title> My Javascript </title>
-<head>
+<style type="text/css">
+
+#shape{
+      width:100px;
+      height:100px;
+      background-color:red;
+      display:'none';
+      position:relative;
+      }
+</style>
+
+</head>
 <body>
-<p> Guess the number </p>
-<p> <select id="myno"> 
-<option>0</option>
-<option>1</option>
-<option>2</option>
-<option>3</option>
-<option>4</option>
-</select>
-<button id="mybutton"> Guess </button> </p>
-<script  type="text/javascript">
+<p><h1>Test Your Actions!</h1></p>
+<p> Click on the boxes asap... </p>
+<p>Your time: <span id="timetaken"></span></p>
+<div id="shape"> </div>
+<script type="text/javascript">
+var start=new Date().getTime();
 
-function doguess(n)
+function makeShape()
 {
-var x=(Math.floor(Math.random()*5));
-if(x==n)
+var top=Math.random()*400;
+var left=Math.random()*400;
+var width=Math.random()*300;
+
+if(Math.random()> 0.5)
 {
-return(true);
+document.getElementById('shape').style.borderRadius="50%";
 }
 else
 {
-return(false);
+document.getElementById('shape').style.borderRadius="0";
 }
+document.getElementById('shape').style.backgroundColor = getRandomColor();
+document.getElementById('shape').style.width = width + "px";
+document.getElementById('shape').style.height = width + "px";
+document.getElementById('shape').style.top = top + "px";
+document.getElementById('shape').style.display="block";
+start=new Date().getTime();
 }
 
-document.getElementById('mybutton').onclick=function()
+function afterDelay()
 {
-var myno= document.getElementById('myno').value;
-var found= false;
-var count=1;
-while(found==false)
-{
-if(doguess(myno)==true)
-{
-found=true;
-alert("Well Done! You Got It! it was "+ myno + " It took me "+ count +" guesses");
+setTimeout(makeShape, Math.random()*2000);
 }
-else
+
+afterDelay();
+document.getElementById('shape').onclick=function()
 {
-count++;
-}
-}
+document.getElementById('shape').style.display="none";
+var end=new Date().getTime();
+var timetaken= (end-start)/1000;
+document.getElementById('timetaken').innerHTML=timetaken + "sec";
+afterDelay();
+alert(timetaken);
 }
 </script>
 </body>
